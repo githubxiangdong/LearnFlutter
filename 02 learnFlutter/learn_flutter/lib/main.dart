@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// 1， 最终形成widget树
-/// 2， 组件化开发思想
+main() => runApp(const MyApp());
 
-// main() {
-//   // 1, runApp函数
-//   runApp(const ZXDHomePage());
-// }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-// 转换成箭头函数
-main() => runApp(const MYApp());
-
-
-/// widget
-/// 有状态的widget: 在运行的时候，有些data需要改变，就用 StatefulWidget
-/// 无状态的widget: 在运行的时候，没有data需要改变，就用 StatelessWidget
-///
-class MYApp extends StatelessWidget {
-  const MYApp({Key? key}) : super(key: key);
-
-  // 重写build
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: ZXDHomePage(),
     );
   }
@@ -36,44 +20,74 @@ class ZXDHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("hello fluter"),
+        title: const Text("商品详情"),
       ),
-      body: ZXDContentBody(),
+      body: const ZXDHomeContent(),
     );
   }
 }
 
-/// flag: 状态
-/// 所有的widget 中都不能写状态
-/// StatefulWidget 不能定义状态，当时可以创建一个单独的类，这个类负责维护状态
-class ZXDContentBody extends StatefulWidget {
-  const ZXDContentBody({Key? key}) : super(key: key);
+class ZXDHomeContent extends StatelessWidget {
+  const ZXDHomeContent({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return ZXDContentBodyState();
+  Widget build(BuildContext context) {
+    return ListView(
+      children: const [
+         ZXDHomeProductItem(
+          title: "你好哇1",
+          info: "我是猴子",
+          imageUrl: "http://pic1.win4000.com/m00/ba/ae/689dcdb12a63c487312e2c2637b10f27.jpg",
+        ),
+        SizedBox(height: 10,),
+        ZXDHomeProductItem(
+          title: "你好哇2",
+          info: "我是动漫美女",
+          imageUrl: "http://pic1.win4000.com/wallpaper/2020-10-16/5f8951f757975.jpg",
+        ),
+        SizedBox(height: 10,),
+        ZXDHomeProductItem(
+          title: "你好哇3",
+          info: "我是小猫咪",
+          imageUrl: "http://pic1.win4000.com/m00/30/70/8e76a75043c7876f78ce2e9ffb5793a9.jpg",
+        ),
+      ],
+    );
   }
 }
 
-class ZXDContentBodyState extends State<ZXDContentBody> {
-  var flag = true;
+class ZXDHomeProductItem extends StatelessWidget {
+  final String title;
+  final String info;
+  final String imageUrl;
+
+  static const style1 = TextStyle(fontSize: 25, color: Colors.orange);
+  static const style2 = TextStyle(fontSize: 20, color: Colors.lightBlue);
+
+  const ZXDHomeProductItem({Key? key, required this.title, required this.info, required this.imageUrl}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: Colors.black38
+        )
+      ),
+      child: Column(
         children: [
-          Checkbox(
-            value: flag,
-            onChanged: (value) {
-              setState(() {
-                flag = value ?? true;
-              });
-            }
-          ),
-          const Text("同意协议", style: TextStyle(fontSize: 20))
+          Text(title, style: style1),
+          const SizedBox(height: 8,),
+          Text(info, style: style2),
+          const SizedBox(height: 8,),
+          Image.network(imageUrl),
+          const SizedBox(height: 20,),
         ],
       ),
     );
   }
 }
+
+
