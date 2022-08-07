@@ -1,0 +1,6 @@
+name: zxdcode
+description: a dart lib
+dependencies: 
+  http: ^0.13.4
+environment:
+  sdk: '>=2.10.0 <3.0.0'
