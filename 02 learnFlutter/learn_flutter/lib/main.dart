@@ -23,73 +23,71 @@ class ZXDHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("商品详情"),
       ),
-      body: const ZXDHomeContent(),
+      body: const ZXDHomeContent(message: "你好哇，zxd",),
     );
   }
 }
 
-class ZXDHomeContent extends StatelessWidget {
-  const ZXDHomeContent({Key? key}) : super(key: key);
+class ZXDHomeContent extends StatefulWidget {
+  // StatefulWidget 从父 传值
+  final String message;
+  const ZXDHomeContent({Key? key, required this.message}) : super(key: key);
+  
+  @override
+  State<ZXDHomeContent> createState() => _ZXDHomeContentState();
+}
+
+///
+/// 为什么Flutter 在设计的时候，statefulWidget的build方法放在state中
+/// 1. build出来的Widget是需要依赖state中的变量（状态、数量）
+/// 2. 在Flutter的运行过程中：
+///   Widget是不断的销毁和创建的;
+///   当我们自己的状态改变时，并不希望创建一个新的state，而是用一个state类管理里面Widget的创建和销毁
+/// Widget(描述信息) -> element -> render
+// 命名规范：这个state类的命名是 以 _ 开头的
+class _ZXDHomeContentState extends State<ZXDHomeContent> {
+  int _counter = 0;
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-         ZXDHomeProductItem(
-          title: "你好哇1",
-          info: "我是猴子",
-          imageUrl: "http://pic1.win4000.com/m00/ba/ae/689dcdb12a63c487312e2c2637b10f27.jpg",
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _getButtons(),
+          Text("我是计数器：$_counter, ${widget.message}", style: const TextStyle(fontSize: 20),)
+        ],
+      ),
+    );
+  }
+
+  Widget _getButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 30)),
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+          ),
+          child: const Text("+"),
+          onPressed: () {
+            setState(() {
+              _counter++;
+            });
+            debugPrint("点击了+");
+          },
         ),
-        SizedBox(height: 10,),
-        ZXDHomeProductItem(
-          title: "你好哇2",
-          info: "我是动漫美女",
-          imageUrl: "http://pic1.win4000.com/wallpaper/2020-10-16/5f8951f757975.jpg",
-        ),
-        SizedBox(height: 10,),
-        ZXDHomeProductItem(
-          title: "你好哇3",
-          info: "我是小猫咪",
-          imageUrl: "http://pic1.win4000.com/m00/30/70/8e76a75043c7876f78ce2e9ffb5793a9.jpg",
+        ElevatedButton(
+          child: const Text("-"),
+          onPressed: () {
+            setState(() {
+              _counter--;
+            });
+            debugPrint("点击了-");
+          },
         ),
       ],
     );
   }
 }
-
-class ZXDHomeProductItem extends StatelessWidget {
-  final String title;
-  final String info;
-  final String imageUrl;
-
-  static const style1 = TextStyle(fontSize: 25, color: Colors.orange);
-  static const style2 = TextStyle(fontSize: 20, color: Colors.lightBlue);
-
-  const ZXDHomeProductItem({Key? key, required this.title, required this.info, required this.imageUrl}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 2,
-          color: Colors.black38
-        )
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(title, style: style1),
-          const SizedBox(height: 8,),
-          Text(info, style: style2),
-          const SizedBox(height: 8,),
-          Image.network(imageUrl),
-          const SizedBox(height: 20,),
-        ],
-      ),
-    );
-  }
-}
-
-
