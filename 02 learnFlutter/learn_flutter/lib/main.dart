@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: ZXDHomePage(),
     );
   }
@@ -77,6 +78,7 @@ class ZXDHomeProductItem extends StatelessWidget {
         )
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(title, style: style1),
           const SizedBox(height: 8,),
