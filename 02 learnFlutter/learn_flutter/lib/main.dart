@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// option + enter：可以快速在Text 外层一层新的组件
+
 main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,86 +10,94 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ZXDHomePage(),
+      home: MyHomePage()
     );
   }
 }
 
-class ZXDHomePage extends StatelessWidget {
-  const ZXDHomePage({Key? key}) : super(key: key);
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("商品详情"),
+        title: const Text("我是商品"),
       ),
-      body: const ZXDHomeContent(message: "你好哇，zxd",),
+      body: HomeContent(),
     );
   }
 }
 
-class ZXDHomeContent extends StatefulWidget {
-  // StatefulWidget 从父 传值
-  final String message;
-  const ZXDHomeContent({Key? key, required this.message}) : super(key: key);
-  
+/// 1. statelessWidget 生命周期 构造函数 -> build方法
+/// 这个地方有个bug，会打印两次，在vs里面只打印一次
+// class HomeContent extends StatelessWidget {
+//   HomeContent({Key? key}) : super(key: key) {
+//     debugPrint("构造函数被调用了");
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     debugPrint("build方法被调用了");
+//     return const Text("我是statelessWidget");
+//   }
+// }
+
+
+/// 2. statefulWidget 生命周期
+/// StatefulWidget需要通过State来管理其数据，并且还要监控状态的改变决定是否重新build整个Widget
+/// 1、执行StatefulWidget的构造函数（Constructor）来创建出StatefulWidget；
+/// 2、执行StatefulWidget的createState方法，来创建一个维护StatefulWidget的State对象；
+/// 其次，调用createState创建State对象时，执行State类的相关方法：
+/// 1、执行State类的构造方法（Constructor）来创建State对象；
+/// 2、执行initState，我们通常会在这个方法中执行一些数据初始化的操作，或者也可能会发送网络请求；
+class HomeContent extends StatefulWidget {
+  HomeContent({Key? key}) : super(key: key) {
+    debugPrint("1 --- 调用 HomeContent 的 构造函数");
+  }
+
   @override
-  State<ZXDHomeContent> createState() => _ZXDHomeContentState();
+  State<HomeContent> createState() {
+    debugPrint("2 --- 调用 HomeContent 的 createState 函数");
+    return _HomeContentState();
+  }
 }
 
-///
-/// 为什么Flutter 在设计的时候，statefulWidget的build方法放在state中
-/// 1. build出来的Widget是需要依赖state中的变量（状态、数量）
-/// 2. 在Flutter的运行过程中：
-///   Widget是不断的销毁和创建的;
-///   当我们自己的状态改变时，并不希望创建一个新的state，而是用一个state类管理里面Widget的创建和销毁
-/// Widget(描述信息) -> element -> render
-// 命名规范：这个state类的命名是 以 _ 开头的
-class _ZXDHomeContentState extends State<ZXDHomeContent> {
-  int _counter = 0;
+class _HomeContentState extends State<HomeContent> {
+  _HomeContentState() {
+    debugPrint("3 --- 调用 _HomeContentState 的 构造函数");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    debugPrint("4 --- 调用 _HomeContentState 的 initState 函数");
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    debugPrint(" --- 调用 didChangeDependencies 函数");
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeContent oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    debugPrint(" --- 调用 didUpdateWidget 函数");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _getButtons(),
-          Text("我是计数器：$_counter, ${widget.message}", style: const TextStyle(fontSize: 20),)
-        ],
-      ),
-    );
+    debugPrint("5 --- 调用 _HomeContentState 的 build 函数");
+    return const Text("你好哇");
   }
 
-  Widget _getButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          style: ButtonStyle(
-            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 30)),
-            backgroundColor: MaterialStateProperty.all(Colors.red),
-          ),
-          child: const Text("+"),
-          onPressed: () {
-            setState(() {
-              _counter++;
-            });
-            debugPrint("点击了+");
-          },
-        ),
-        ElevatedButton(
-          child: const Text("-"),
-          onPressed: () {
-            setState(() {
-              _counter--;
-            });
-            debugPrint("点击了-");
-          },
-        ),
-      ],
-    );
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    debugPrint("6 --- 调用 _HomeContentState 的 dispose 函数");
   }
 }
