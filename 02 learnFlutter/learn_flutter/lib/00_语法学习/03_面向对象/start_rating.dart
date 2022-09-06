@@ -10,7 +10,8 @@ class StartRating extends StatefulWidget {
   final Widget unSelectedImage;
   final Widget selectedImage;
 
-  // 构造函数
+  /// 1. 普通的构造方法
+  /// 当有了自己的构造方法时，默认构造方法是失效的
   StartRating({
     Key? key,
     required this.rating,
@@ -24,6 +25,39 @@ class StartRating extends StatefulWidget {
   }) :  unSelectedImage = unSelectedImage ?? Icon(Icons.star_border, color: unSelectedColor, size: size),
         selectedImage = selectedImage ?? Icon(Icons.star, color: selectedColor, size: size),
         super(key: key);
+
+  /// 2. 命名构造方法
+  /// 如果我们确实需要更多的构造方法，那么我们就可以用-命名构造方法
+  StartRating.heart({
+    Key? key,
+    required this.rating,
+    this.maxRating = 10,
+    this.count = 5,
+    this.size = 30,
+    this.unSelectedColor = Colors.grey,
+    this.selectedColor = Colors.red,
+  }) :  unSelectedImage = Icon(Icons.favorite_border, color: unSelectedColor, size: size),
+        selectedImage = Icon(Icons.favorite, color: selectedColor, size: size),
+        super(key: key);
+
+  /// 3. 常量构造方法
+  /// 如果我们在传入相同值时，希望返回的是同一个对象，这时就可以用-常量构造方法
+  /// 默认情况下，创建对象时，即使传入相同的参数，创建出来的也不是同一个对象
+  const StartRating.triangle({
+    Key? key,
+    this.rating = 5,
+    this.maxRating = 10,
+    this.count = 5,
+    this.size = 30,
+    this.unSelectedColor = Colors.grey,
+    this.selectedColor = Colors.red,
+  }) :  unSelectedImage = const Icon(Icons.heart_broken_outlined, color: Colors.grey, size: 30),
+        selectedImage = const Icon(Icons.heart_broken, color: Colors.red, size: 30),
+        super(key: key);
+
+  /// 4. 重定向构造方法
+
+  /// 5. 工厂构造方法
 
   @override
   State<StartRating> createState() => _StartRatingState();
