@@ -37,11 +37,14 @@ class MyHomePage extends StatelessWidget {
 
     debugPrint("是否是同一个对象：${identical(startRating3, startRating4)}");
 
+    /// 重定向构造方法
+    final circle = StartRating.circle(8);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("测试demo"),
       ),
-      body: startRating3,
+      body: Center(child: circle),
     );
   }
 }

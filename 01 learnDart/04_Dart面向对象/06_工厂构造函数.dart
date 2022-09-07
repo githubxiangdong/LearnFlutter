@@ -1,12 +1,12 @@
 void main(List<String> args) {
-  // const p1 = Person("zxd");
-  // const p2 = Person("zxd");
+  const p1 = Person("zxd");
+  const p2 = Person("zxd");
 
-  // print(identical(p1, p2));
+  print("ss ${identical(p1, p2)}");
 
-  final p3 = Person1.withName("zxd");
-  final p4 = Person1.withName("zxd");
-  print(identical(p3, p4));
+  // final p3 = Person1.withName("zxd");
+  // final p4 = Person1.withName("zxd");
+  // print(identical(p3, p4));
 }
 
 // 如果传入的name相同时，返回的是同一个对象

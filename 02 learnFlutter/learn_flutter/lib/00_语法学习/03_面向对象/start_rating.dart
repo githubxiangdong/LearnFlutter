@@ -56,6 +56,23 @@ class StartRating extends StatefulWidget {
         super(key: key);
 
   /// 4. 重定向构造方法
+  /// 如果我们希望在一个构造方法中去调用另外一个构造方法, 那么就可以使用-重定向构造方法
+  StartRating.circle(double rating, {Key? key}) : this._inCircle(rating: rating, key: key);
+
+  /// 内部私有方法
+  StartRating._inCircle({
+    Key? key,
+    required this.rating,
+    this.maxRating = 10,
+    this.count = 5,
+    this.size = 30,
+    this.unSelectedColor = Colors.grey,
+    this.selectedColor = Colors.amber,
+    Widget? unSelectedImage, // 可选类型
+    Widget? selectedImage,
+  }) :  unSelectedImage = unSelectedImage ?? Icon(Icons.circle_outlined, color: unSelectedColor, size: size),
+        selectedImage = selectedImage ?? Icon(Icons.circle, color: selectedColor, size: size),
+        super(key: key);
 
   /// 5. 工厂构造方法
 
@@ -68,8 +85,9 @@ class _StartRatingState extends State<StartRating> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Row(children: buildUnselectedStar()),
-        Row(children: buildSelectedStar()),
+        /// MainAxisSize.min 尽可能的小
+        Row(mainAxisSize: MainAxisSize.min, children: buildUnselectedStar()),
+        Row(mainAxisSize: MainAxisSize.min, children: buildSelectedStar()),
       ],
     );
   }
