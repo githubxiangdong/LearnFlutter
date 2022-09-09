@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/00_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/03_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/heart_rating.dart';
 
 import '00_语法学习/03_面向对象/start_rating.dart';
 
@@ -21,30 +22,41 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// 此时对象其实是 new 出来的一个对象，但是在 2.0一上 new可以省略
-    var startRating = new StartRating.heart(rating: 4);
-    
-    /// 再次new一个对象startRating2，startRating 和 startRating是不是同一个对象
-    var startRating2 = new StartRating.heart(rating: 4);
+    /// 1. 普通构造方法
+    final starRating = StartRating(rating: 3,);
+    final starRating2 = StartRating(rating: 3,);
+    debugPrint("是否是同一个对象：${identical(starRating, starRating2)}");
 
-    /// flutter: 是否是同一个对象：false，打印结果不是同一个对象
+    /// 2. 命名构造方法
+    /// 此时对象其实是 new 出来的一个对象，但是在 2.0一上 new可以省略
+    var heart1 = new StartRating.heart(rating: 4);
+    var heart2 = new StartRating.heart(rating: 4);
     // debugPrint("是否是同一个对象：${identical(startRating, startRating2)}");
 
+    /// 3. 常量构造方法
     /// 如果我传入的是一样的参数，得到的对象也是同一个，该怎么办？
     /// 常量构造方法???
-    const startRating3 = StartRating.triangle(rating: 7);
-    const startRating4 = StartRating.triangle(rating: 7);
+    const triangle = StartRating.triangle(rating: 7);
+    const triangle2 = StartRating.triangle(rating: 7);
+    // debugPrint("是否是同一个对象：${identical(triangle, triangle2)}");
 
-    debugPrint("是否是同一个对象：${identical(startRating3, startRating4)}");
-
-    /// 重定向构造方法
+    /// 4. 重定向构造方法
     final circle = StartRating.circle(8);
+
+    /// 5. 工厂构造方法
+    final star = StartRating.star(7);
+    final star2 = StartRating.star(8);
+    // debugPrint("是否是同一个对象：${identical(star, star2)}");
+
+    /// 6. 继承
+    /// 如果我想实现一个心形的评分，直接继承就可以实现
+    final heartRating = HeartRating(rating: 1,);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("测试demo"),
       ),
-      body: Center(child: circle),
+      body: Center(child: heartRating),
     );
   }
 }

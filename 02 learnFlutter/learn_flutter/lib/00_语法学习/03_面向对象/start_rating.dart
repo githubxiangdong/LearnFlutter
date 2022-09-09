@@ -58,7 +58,6 @@ class StartRating extends StatefulWidget {
   /// 4. 重定向构造方法
   /// 如果我们希望在一个构造方法中去调用另外一个构造方法, 那么就可以使用-重定向构造方法
   StartRating.circle(double rating, {Key? key}) : this._inCircle(rating: rating, key: key);
-
   /// 内部私有方法
   StartRating._inCircle({
     Key? key,
@@ -75,6 +74,14 @@ class StartRating extends StatefulWidget {
         super(key: key);
 
   /// 5. 工厂构造方法
+  static StartRating? _startRating;
+  factory StartRating.star(double rating) {
+    // if (_startRating == null) {
+    //   _startRating = StartRating(rating: rating,);
+    // }
+    // return _startRating;
+    return _startRating ??= StartRating(rating: rating,);
+  }
 
   @override
   State<StartRating> createState() => _StartRatingState();
