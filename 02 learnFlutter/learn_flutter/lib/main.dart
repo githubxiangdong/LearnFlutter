@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/00_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/03_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/heart_rating.dart';
 
-import '00_语法学习/03_面向对象/start_rating.dart';
+import '00_语法学习/03_面向对象/01_构造方法/start_rating.dart';
+import '00_语法学习/03_面向对象/02_继承/heart_rating.dart';
 
 main() => runApp(const MyApp());
 
