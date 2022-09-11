@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/00_%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/03_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/04_%E7%B1%BB%E6%88%90%E5%91%98%E5%92%8C%E7%B1%BB%E6%96%B9%E6%B3%95/student_info.dart';
 import '00_语法学习/03_面向对象/03_抽象类和隐式接口/person.dart';
 import '00_语法学习/03_面向对象/01_构造方法/start_rating.dart';
 import '00_语法学习/03_面向对象/02_继承/heart_rating.dart';
@@ -64,6 +65,16 @@ class MyHomePage extends StatelessWidget {
     student.playing();
     student.eating();
     student.drinking();
+
+    /// 9. 类方法和类属性
+    // 实例对象
+    final stuInfo = StudentInfo();
+    stuInfo.grade = 90;
+    stuInfo.study();
+
+    // 类对象
+    StudentInfo.name = "小明";
+    StudentInfo.run();
 
     return Scaffold(
       appBar: AppBar(
