@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '00_语法学习/03_面向对象/03_抽象类和隐式接口/person.dart';
 import '00_语法学习/03_面向对象/01_构造方法/start_rating.dart';
 import '00_语法学习/03_面向对象/02_继承/heart_rating.dart';
 
@@ -51,6 +51,19 @@ class MyHomePage extends StatelessWidget {
     /// 6. 继承
     /// 如果我想实现一个心形的评分，直接继承就可以实现
     final heartRating = HeartRating(rating: 1,);
+
+    /// 7. 抽象类
+    final person = Person();
+    person.running();
+    person.playing();
+    debugPrint("${person.height()}");
+
+    /// 8. 隐式接口
+    final student = Student();
+    student.running();
+    student.playing();
+    student.eating();
+    student.drinking();
 
     return Scaffold(
       appBar: AppBar(
