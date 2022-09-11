@@ -56,7 +56,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("测试demo"),
       ),
-      body: Center(child: heartRating),
+      body: Center(child: starRating),
     );
   }
 }
