@@ -24,7 +24,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// 1. 普通构造方法
-    final starRating = StartRating(rating: 3,);
+    final starRating = StartRating(rating: 4,);
     final starRating2 = StartRating(rating: 3,);
     debugPrint("是否是同一个对象：${identical(starRating, starRating2)}");
 
@@ -45,28 +45,33 @@ class MyHomePage extends StatelessWidget {
     final circle = StartRating.circle(8);
 
     /// 5. 工厂构造方法
-    final star = StartRating.star(7);
-    final star2 = StartRating.star(8);
-    // debugPrint("是否是同一个对象：${identical(star, star2)}");
+    final star1 = StartRating.withRating(9);
+    final star2 = StartRating.withRating(6);
+    // debugPrint("star1与star2是否是同一个对象：${star1 == star2}");
 
-    /// 6. 继承
+    /// 6. 单例
+    final star3 = StartRating.star(7);
+    final star4 = StartRating.star(8);
+    // debugPrint("star与star2是否是同一个对象：${identical(star3, star4)}");
+
+    /// 7. 继承
     /// 如果我想实现一个心形的评分，直接继承就可以实现
     final heartRating = HeartRating(rating: 1,);
 
-    /// 7. 抽象类
+    /// 8. 抽象类
     final person = Person();
     person.running();
     person.playing();
     debugPrint("${person.height()}");
 
-    /// 8. 隐式接口
+    /// 9. 隐式接口
     final student = Student();
     student.running();
     student.playing();
     student.eating();
     student.drinking();
 
-    /// 9. 类方法和类属性
+    /// 10. 类方法和类属性
     // 实例对象
     final stuInfo = StudentInfo();
     stuInfo.grade = 90;
@@ -76,11 +81,19 @@ class MyHomePage extends StatelessWidget {
     StudentInfo.name = "小明";
     StudentInfo.run();
 
+    const cen1 = Center(
+      child: Text("zxd"),
+    );
+    const cen2 = Center(
+      child: Text("zxd"),
+    );
+    // debugPrint("cen1 是否与 cen2一样： ${cen1 == cen2}");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("测试demo"),
       ),
-      body: Center(child: starRating),
+      body: Center(child: star3),
     );
   }
 }

@@ -74,6 +74,19 @@ class StartRating extends StatefulWidget {
         super(key: key);
 
   /// 5. 工厂构造方法
+  // 创建一个分数的缓存
+  static final Map<double, StartRating> _rating = {};
+  factory StartRating.withRating(double rating) {
+    if (_rating.containsKey(rating)) {
+      return _rating[rating] ?? StartRating(rating: rating);
+    } else {
+      final star = StartRating(rating: rating);
+      _rating[rating] = star;
+      return star;
+    }
+  }
+
+  /// 6. 单例
   static StartRating? _startRating;
   factory StartRating.star(double rating) {
     // if (_startRating == null) {
