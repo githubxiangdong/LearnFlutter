@@ -81,6 +81,7 @@ class MyHomePage extends StatelessWidget {
     StudentInfo.name = "小明";
     StudentInfo.run();
 
+    /// 系统widget
     const cen1 = Center(
       child: Text("zxd"),
     );
