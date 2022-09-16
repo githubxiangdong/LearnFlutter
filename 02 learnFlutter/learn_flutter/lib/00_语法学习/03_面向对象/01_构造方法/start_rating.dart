@@ -12,6 +12,7 @@ class StartRating extends StatefulWidget {
 
   /// 1. 普通的构造方法
   /// 当有了自己的构造方法时，默认构造方法是失效的
+  /// to do
   StartRating({
     Key? key,
     required this.rating,
@@ -40,22 +41,7 @@ class StartRating extends StatefulWidget {
         selectedImage = Icon(Icons.favorite, color: selectedColor, size: size),
         super(key: key);
 
-  /// 3. 常量构造方法
-  /// 如果我们在传入相同值时，希望返回的是同一个对象，这时就可以用-常量构造方法
-  /// 默认情况下，创建对象时，即使传入相同的参数，创建出来的也不是同一个对象
-  const StartRating.triangle({
-    Key? key,
-    this.rating = 5,
-    this.maxRating = 10,
-    this.count = 5,
-    this.size = 30,
-    this.unSelectedColor = Colors.grey,
-    this.selectedColor = Colors.red,
-  }) :  unSelectedImage = const Icon(Icons.heart_broken_outlined, color: Colors.grey, size: 30),
-        selectedImage = const Icon(Icons.heart_broken, color: Colors.red, size: 30),
-        super(key: key);
-
-  /// 4. 重定向构造方法
+  /// 3. 重定向构造方法
   /// 如果我们希望在一个构造方法中去调用另外一个构造方法, 那么就可以使用-重定向构造方法
   StartRating.circle(double rating, {Key? key}) : this._inCircle(rating: rating, key: key);
   /// 内部私有方法
@@ -73,10 +59,30 @@ class StartRating extends StatefulWidget {
         selectedImage = selectedImage ?? Icon(Icons.circle, color: selectedColor, size: size),
         super(key: key);
 
+  /// 4. 常量构造方法
+  /// 如果我们在传入相同值时，希望返回的是同一个对象，这时就可以用-常量构造方法
+  /// 默认情况下，创建对象时，即使传入相同的参数，创建出来的也不是同一个对象
+  /// 可以参见 person_const 示例
+  const StartRating.triangle({
+    Key? key,
+    this.rating = 5,
+    this.maxRating = 10,
+    this.count = 5,
+    this.size = 30,
+    this.unSelectedColor = Colors.grey,
+    this.selectedColor = Colors.red,
+  }) :  unSelectedImage = const Icon(Icons.heart_broken_outlined, color: Colors.grey, size: 30),
+        selectedImage = const Icon(Icons.heart_broken, color: Colors.red, size: 30),
+        super(key: key);
+
   /// 5. 工厂构造方法
-  // 创建一个分数的缓存
+  /// 如果一个构造函数并不总是返回一个新的对象，则使用 factory 来定义 这个构造函数。
+  /// 例如，一个工厂构造函数 可能从缓存中获取一个实例并返回，或者 返回一个子类型的实例。
+  /// 区别：一般的构造函数是没有返回值的，而factory构造函数须要一个返回值
+  /// 创建一个分数的缓存
+  /// 具体参见 PersonFactory 示例
   static final Map<double, StartRating> _rating = {};
-  factory StartRating.withRating(double rating) {
+  factory StartRating.withRating(double rating,) {
     if (_rating.containsKey(rating)) {
       return _rating[rating] ?? StartRating(rating: rating);
     } else {

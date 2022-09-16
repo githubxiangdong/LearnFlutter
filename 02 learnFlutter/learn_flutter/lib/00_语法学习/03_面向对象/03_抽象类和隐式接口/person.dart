@@ -8,6 +8,7 @@ import 'package:learn_flutter/00_语法学习/03_面向对象/03_抽象类和隐
 /// 单继承
 class Person extends PersonHobbyAbstract {
   /// 1. 继承自抽象类后，必须实现抽象类中的抽象方法
+
   @override
   void running() {
     debugPrint("这个人的爱好是： 跑步");
@@ -24,8 +25,9 @@ class Person extends PersonHobbyAbstract {
   // }
 }
 
-/// 多继承
-class Student implements PersonHobbyAbstract, PersonHobbyInterface {
+/// 多实现
+/// to do extends  implements 区别
+class Student implements PersonHobbyInterface, PersonHobbyAbstract {
   /// 1. 继承自抽象类后，必须实现抽象类中的抽象方法
   @override
   void running() {
